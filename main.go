@@ -29,6 +29,9 @@ func main() {
 			continue
 		}
 		switch inputs[0] {
+		case "dev":
+			err := HandleDevOptions(db, inputs)
+			if err != nil {fmt.Println(err)}
 		case "list":
 			fallthrough
 		case "ls":

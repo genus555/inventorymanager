@@ -137,3 +137,24 @@ func HandleCheckRestock(db *database.DB, inputs []string) error {
 	}
 	return nil
 }
+
+func HandleDevOptions(db *database.DB, inputs []string) error {
+	if len(inputs) < 2 {return fmt.Errorf("Missing Dev Flag")}
+	switch inputs[1] {
+	case "wipe":
+		if len(inputs) > 2 {
+			if inputs[2] == "category" {
+				if len(inputs) > 3 {
+					err := db.WipeTable(inputs[3])
+					if err != nil {return err}
+				} else {return fmt.Errorf("Missing category name")}
+				return nil
+			}
+		}
+		err := db.Wipe()
+		if err != nil {return err}
+	default:
+		return fmt.Errorf("Incorrect Flag")
+	}
+	return nil
+}

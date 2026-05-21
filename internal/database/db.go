@@ -200,3 +200,42 @@ func (db *DB) PlusMinus(entry string, PM bool) error {
 	fmt.Printf("Entry \"%s\" in %s has been updated: %d --> %d\n", entry, db.TableName, initial_amount, amount)
 	return nil
 }
+
+func (db *DB) WipeTable(tableName string) error {
+	db.TableName = tableName
+	query := fmt.Sprintf("SELECT name FROM %s", tableName)
+	entries, err := db.database.Query(query)
+	if err != nil {return err}
+
+	var tableEntries []string
+	for entries.Next() {
+		var entry string
+		if err := entries.Scan(&entry); err != nil {return err}
+		tableEntries = append(tableEntries, entry)
+	}
+	entries.Close()
+
+	for _, entry := range tableEntries {
+		if err := db.UpdateEntry(entry, 0); err != nil {return err}
+	}
+	fmt.Printf("Category \"%s\" stock amount has been reset\n", tableName)
+	return nil
+}
+
+func (db *DB) Wipe() error {
+	tables, err := db.database.Query("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';")
+	if err != nil {return err}
+
+	var tableNames []string
+	for tables.Next() {
+		var tableName string
+		if err := tables.Scan(&tableName); err != nil {return err}
+		tableNames = append(tableNames, tableName)
+	}
+	tables.Close()
+
+	for _, tableName := range tableNames {
+		if err := db.WipeTable(tableName); err != nil {return err}
+	}
+	return nil
+}
