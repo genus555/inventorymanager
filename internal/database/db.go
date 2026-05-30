@@ -239,3 +239,15 @@ func (db *DB) Wipe() error {
 	}
 	return nil
 }
+
+func (db *DB) PrintCache() {
+	fmt.Println(db.cache)
+}
+
+func (db *DB) ChangeCacheLimit(limit int) {
+	db.cacheLimit = limit
+	for len(db.cache) > db.cacheLimit {
+		db.deleteFromCache()
+	}
+	fmt.Printf("Cache limit has been changed to %d\n", db.cacheLimit)
+}

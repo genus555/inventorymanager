@@ -11,6 +11,7 @@ type DB struct {
 	TableName	string
 	cache		map[string]int
 	cacheOrder	[]string
+	cacheLimit	int
 }
 
 const (
@@ -21,6 +22,7 @@ const (
 const (
 	LOW = 1
 	DEFAULTAMOUNT = 0
+	STARTCACHELIMIT = 5
 )
 
 func NewDB(db *sql.DB) *DB {
@@ -29,5 +31,6 @@ func NewDB(db *sql.DB) *DB {
 		TableName:	"",
 		cache:		make(map[string]int),
 		cacheOrder:	[]string{},
+		cacheLimit:	STARTCACHELIMIT,
 	}
 }

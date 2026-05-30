@@ -38,7 +38,7 @@ func (db *DB) addToCache(entry string, amount int) {
 	}
 	db.cache[entry_table] = amount
 
-	if len(db.cacheOrder) > 5 {
+	if len(db.cacheOrder) > db.cacheLimit {
 		db.deleteFromCache()
 	}
 }

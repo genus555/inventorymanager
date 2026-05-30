@@ -153,6 +153,16 @@ func HandleDevOptions(db *database.DB, inputs []string) error {
 		}
 		err := db.Wipe()
 		if err != nil {return err}
+	case "cache":
+		if len(inputs) > 2 {
+			if new_limit, err := strconv.Atoi(inputs[2]); err == nil {
+				db.ChangeCacheLimit(new_limit)
+			} else {
+				return fmt.Errorf("%v isn't a valid number", inputs[2])
+			}
+		} else {
+			db.PrintCache()
+		}
 	default:
 		return fmt.Errorf("Incorrect Flag")
 	}
