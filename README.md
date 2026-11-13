@@ -3,7 +3,7 @@
 An Inventory Manager that lets you organize stock into different categories and allows you to view or update stock amounts. 
   
 ## 😤Motivation  
-Every game has a built in inventory or some way to view and manipulate your items. I'm currently playing a public beta on a game without an inventory feature so I decided to create the Inventory Manager as a way to keep stock of what I do and don't have. While building Inventory Manager I kept the program broad so that it can be used for a general purpose rather than specifically my game. For available commands, view the Usage sections. (For further commands view the DEV.md file) (<- WIP)
+Every game has a built in inventory or some way to view and manipulate your items. I'm currently playing a public beta on a game without an inventory feature so I decided to create the Inventory Manager as a way to keep stock of what I do and don't have. While building Inventory Manager I kept the program broad so that it can be used for a general purpose rather than specifically my game. For available commands, view the Usage sections. (For further commands view the DEV.md file)
 
 ## 🤖Requirements:
 - [Go](https://golang.org/) 1.21+
